@@ -1,0 +1,10 @@
+#!/bin/sh
+
+LINK="$1"
+
+if [ -z "$LINK" ]; then
+  echo "Error: need magnet link"
+  exit 1
+fi
+
+rofi-sensible-terminal -hold -e transmission-cli $LINK
