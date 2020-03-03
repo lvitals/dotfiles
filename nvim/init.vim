@@ -1,3 +1,18 @@
+" Vim-plug
+" Automatic installaion of vim-plug
+call plug#begin('~/.config/nvim/plugged')
+
+" using vim-plug
+Plug 'mcchrish/nnn.vim'
+
+call plug#end()
+
+" Disable default mappings
+let g:nnn#set_default_mappings = 0
+
+" Load file manager NNN 
+nmap nm :Nn<CR>
+
 " You want Vim, not vi. When Vim finds a vimrc, 'nocompatible' is set anyway.
 " We set it explicitely to make our position clear!
 set nocompatible
