@@ -8,7 +8,7 @@
     background-color:    #222222;
     border-color:        White;
     text-color:          LightGray; 
-    font:                "DejaVu Sans Mono 10";
+    font:                "Source Code Pro 10";
 }
 
 #window {
@@ -29,6 +29,7 @@
 #entry {
     expand:     false;
     width:      14em;
+    padding:    2px 2px 2px 2px;
 }
 
 #listview {
