@@ -92,10 +92,10 @@ output * bg #323f55 solid_color
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec swaynag --background=000000 --border-bottom=4c4c4c --text=FFFFFF --border=7d7d7d --button-background=4c4c4c -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
     # Power control
-    bindsym $mod+Shift+z exec swaynag -t warning \
+    bindsym $mod+Shift+z exec swaynag --background=000000 --border-bottom=4c4c4c --text=FFFFFF --border=7d7d7d --button-background=4c4c4c \
         -m "Power control" \
         -b "lock" "i3lock -c 000000; killall swaynag" \
         -b "logout" "swaymsg exit" \
