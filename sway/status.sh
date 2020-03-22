@@ -18,6 +18,8 @@ linux_version=$(uname -r | cut -d '-' -f1)
 battery_percent=$(acpi | awk 'NR==1{print $4}'| sed 's/\,$//')
 battery_time=$(acpi | awk 'NR==1{print substr($5, 1, length($5)-3)}'| sed 's/\,$//')
 
+[[ -z "$battery_percent" ]] && battery="B: no" || battery="B: $battery_percent $battery_time"
+
 # Get cpu
 cpu=$(ps -A -o pcpu | tail -n+2 | awk '{n += $1}; END{ print "C: " n "%"}')
 
@@ -27,10 +29,11 @@ memory_usage=$(free -m | awk 'NR==2{printf "M: %s/%sMB (%.2f%%)\n", $3,$2,$3*100
 # Get disk usage
 disk_usage=$(df -h | awk '$NF=="/"{printf "D: %d/%dGB (%s)\n", $3,$2,$5}')
 
-# Get wifi
-wifi_interface=$(cat /proc/net/wireless | awk 'END { print $1 }' | sed 's/\:$//')
-wifi_quality=$(cat /proc/net/wireless | awk 'END { print $3 }' | sed 's/\.$//')
-wifi_ip=$(ip -4 addr show $wifi_interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+# Get network default
+ntw_interface=$(ip route show default | awk '/default/ {print $5}')
+ntw_ip=$(ip route show default | awk '/default/ {print $3}')
+
+[[ -z "$ntw_ip" ]] && ntw="N: down" || ntw="N: $ntw_interface ($ntw_ip)"
 
 # Output statusbar
-echo  $uptime_formatted ↑ '|' $linux_version '|' $wifi_interface'('$wifi_ip')' $wifi_quality% '|' $cpu '|' $memory_usage '|' $disk_usage '|' 'B:' $battery_percent $battery_time '|' $date_formatted
+echo -e $uptime_formatted ↑ '|' $linux_version '|' $ntw '|' $cpu '|' $memory_usage '|' $disk_usage '|' $battery '|' $date_formatted
