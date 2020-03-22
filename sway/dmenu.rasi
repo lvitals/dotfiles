@@ -43,7 +43,7 @@
 }
 
 #element selected {
-    background-color: SteelBlue;
+    background-color: #515151;
 }
 
 // vim: ft=css
