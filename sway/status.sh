@@ -18,7 +18,7 @@ linux_version="| "$(uname -r | cut -d '-' -f1)
 battery_percent=$(acpi | awk 'NR==1{print $4}'| sed 's/\,$//')
 battery_time=$(acpi | awk 'NR==1{print substr($5, 1, length($5)-3)}'| sed 's/\,$//')
 
-[[ -z "$battery_percent" ]] && battery="" || battery="B: $battery_percent $battery_time"
+[[ -z "$battery_percent" ]] && battery="" || battery="| B: $battery_percent $battery_time"
 
 # Get cpu
 cpu="| "$(ps -A -o pcpu | tail -n+2 | awk '{n += $1}; END{ print "C: " n "%"}')
