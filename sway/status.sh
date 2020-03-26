@@ -13,15 +13,13 @@ date_formatted="| "$(date "+%a %d/%m/%Y %H:%M:%S")
 linux_version="| "$(uname -r | cut -d '-' -f1)
 
 # Returns the battery status.
-# battery_status=$(cat /sys/class/power_supply/BAT0/status)
-
 battery_percent=$(acpi | awk 'NR==1{print $4}'| sed 's/\,$//')
 battery_time=$(acpi | awk 'NR==1{print substr($5, 1, length($5)-3)}'| sed 's/\,$//')
 
-[[ -z "$battery_percent" ]] && battery="" || battery="| B: $battery_percent $battery_time"
+[[ -z "$battery_percent" ]] && battery="" || battery="| B: $battery_time ($battery_percent)"
 
 # Get cpu
-cpu="| "$(ps -A -o pcpu | tail -n+2 | awk -v cpu_num=$(nproc) '{n += $1}; END{ print "C: " n / cpu_num "%"}')
+cpu="| "$(ps -A -o pcpu | tail -n+2 | awk -v cpu_num=$(nproc) '{n += $1}; END{ printf "C: %.2f%%", (n / cpu_num)}')
 
 # Get memory usage
 memory_usage="| "$(free -m | awk 'NR==2{printf "M: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }')
