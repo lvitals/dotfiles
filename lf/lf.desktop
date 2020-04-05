@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=lf
+Type=Application
+Exec=lf %u
+NoDisplay=true
+MimeType=inode/directory;
+Terminal=true
