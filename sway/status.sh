@@ -16,7 +16,7 @@ linux_version="| "$(uname -r | cut -d '-' -f1)
 battery_percent=$(acpi | awk 'NR==1{print $4}'| sed 's/\,$//')
 battery_time=$(acpi | awk 'NR==1{print substr($5, 1, length($5)-3)}'| sed 's/\,$//')
 
-[[ -z "$battery_percent" ]] && battery="" || battery="| B: $battery_time ($battery_percent)"
+[[ "$battery_time" == *[0-9]* ]] && battery="| B: $battery_time ($battery_percent)" 
 
 # Get cpu
 cpu="| "$(ps -A -o pcpu | tail -n+2 | awk -v cpu_num=$(nproc) '{n += $1}; END{ printf "C: %.2f%%", (n / cpu_num)}')
@@ -25,7 +25,7 @@ cpu="| "$(ps -A -o pcpu | tail -n+2 | awk -v cpu_num=$(nproc) '{n += $1}; END{ p
 memory_usage="| "$(free -m | awk 'NR==2{printf "M: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }')
 
 # Get disk usage
-disk_usage="| "$(df -h | awk '$NF=="/"{printf "D: %d/%dGB (%s)\n", $3,$2,$5}')
+disk_usage="| "$(df -h | awk '$NF=="/"{printf "D: %s/%s (%s)\n", $3,$2,$5}')
 
 # Get network default
 ntw_interface=$(ip route show default | awk '/default/ {print $5}')

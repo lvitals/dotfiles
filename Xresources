@@ -1,9 +1,3 @@
-! Set the font family and size
-xterm*faceName: Source Code Pro:size=12:antialias=true
-
-! 256 colors
-xterm*termName: xterm-256color
-
 ! Theme colors
 *.background: #161719
 *.foreground: #c5c8c6

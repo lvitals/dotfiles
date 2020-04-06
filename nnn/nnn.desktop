@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=nnn
-Type=Application
-Exec=nnn %u
-NoDisplay=true
-MimeType=inode/directory;
-Terminal=true

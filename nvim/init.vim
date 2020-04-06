@@ -2,16 +2,19 @@
 " Automatic installaion of vim-plug
 call plug#begin('~/.config/nvim/plugged')
 
-" using vim-plug
-Plug 'mcchrish/nnn.vim'
+" fzf is a general-purpose command-line fuzzy finder.
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
-" Disable default mappings
-let g:nnn#set_default_mappings = 0
+" A command-line fuzzy finder Ctrl+P
+nmap <c-p> :FZF<CR>
 
-" Load file manager NNN 
-nmap nm :Nn<CR>
+" fzf file fuzzy search that respects .gitignore
+" If in git directory, show only files that are committed, staged, or unstaged
+" else use regular :Files
+nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles --exclude-standard --others --cached')."\<cr>"
 
 " You want Vim, not vi. When Vim finds a vimrc, 'nocompatible' is set anyway.
 " We set it explicitely to make our position clear!
@@ -19,7 +22,7 @@ set nocompatible
 
 filetype plugin indent on  " Load plugins according to detected filetype.
 syntax on                  " Enable syntax highlighting.
-"colorscheme onedark 
+"colorscheme onedark
 set mouse=r " v or r
 
 set autoindent             " Indent according to previous line.
@@ -49,11 +52,11 @@ set report      =0         " Always report changed lines.
 set synmaxcol   =1000      " Only highlight the first 1000 columns.
 
 set nowrap " turn off word wrap.
-set number " number line enable.
+" set number " number line enable.
 
 hi LineNr ctermfg=DarkGrey guifg=DarkGrey " Number line change color.
 
-:map <C-a> GVgg " Select all text <Ctrl+a>. 
+:map <C-a> GVgg " Select all text <Ctrl+a>.
 
 set laststatus=2 " statusline enable
 
@@ -97,3 +100,17 @@ set statusline+=\ Buf:%n                    " Buffer number
 "set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 set statusline+=%{StatuslineGit()}          " git brach
 
+
+set grepprg=ag\ --vimgrep\ $*
+set grepformat=%f:%l:%c:%m
+
+if executable("rg")
+    command! -bang -nargs=* Rg
+          \ call fzf#vim#grep(
+          \   'rg --column --line-number --no-heading --color=always --ignore-case '.shellescape(<q-args>), 1,
+          \   <bang>0 ? fzf#vim#with_preview('up:60%')
+          \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+          \   <bang>0)
+
+     :nmap <C-S-f> :Rg 
+endif

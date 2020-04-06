@@ -23,7 +23,7 @@ set $term rofi-sensible-terminal
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu rofi -show drun -show-icons -icon-theme Papirus -theme ~/.config/sway/dmenu.rasi  
+set $menu rofi -show drun -show-icons -theme ~/.config/sway/dmenu.rasi
 
 # Default wallpaper
 #set $wallpaper /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
