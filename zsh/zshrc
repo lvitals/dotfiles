@@ -1,0 +1,46 @@
+# Enable colors and change prompt:
+autoload -U colors && colors
+
+# Load version control information
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+# Format the vcs_info_msg_0_ variable
+zstyle ':vcs_info:git:*' formats '(%b)'
+
+# Set up the prompt (with git branch name)
+setopt PROMPT_SUBST
+
+# Enable colored output
+export CLICOLOR=YES 
+if which dircolors &>/dev/null; then
+  alias ls="ls --color=auto"
+  alias diff='diff --color=auto'
+  alias grep='grep --color=auto'
+fi
+
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# Share history between tmux windows
+setopt SHARE_HISTORY
+setopt hist_ignore_space
+setopt histignoredups
+
+# Support TAB/TAB/TAB for repeated autocompletion
+zmodload zsh/complist
+bindkey -M menuselect '^I' accept-and-infer-next-history
+
+# No color
+# PROMPT='%n@%m ${PWD/#$HOME/~} ${vcs_info_msg_0_}> '
+
+# Color
+NEWLINE=$'\n'
+PROMPT='%{$fg[gray]%}%n%{$fg[gray]%}@%{$fg[gray]%}%m%{$fg[cyan]%} ${PWD/#$HOME/~} %{$fg[green]%}${vcs_info_msg_0_}%{$reset_color%}${NEWLINE}% $ '
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+source $HOME/.rvm/scripts/rvm
