@@ -50,7 +50,7 @@ bindkey -M menuselect '^I' accept-and-infer-next-history
 
 # Color
 NEWLINE=$'\n'
-PROMPT='%{$fg[gray]%}%n%{$fg[gray]%}@%{$fg[gray]%}%m%{$fg[cyan]%} ${PWD/#$HOME/~} %{$fg[green]%}${vcs_info_msg_0_}%{$reset_color%}${NEWLINE}% $ '
+PROMPT='%{$fg[gray]%}%n%{$fg[gray]%}@%{$fg[gray]%}%m%{$fg[cyan]%} ${PWD/#$HOME/~} %{$fg[green]%}${vcs_info_msg_0_}%{$reset_color%}${NEWLINE}% %#%{$fg[default]%} '
 
 DISABLE_AUTO_TITLE="true"
 function precmd () {
