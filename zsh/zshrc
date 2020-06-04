@@ -52,6 +52,8 @@ bindkey -M menuselect '^I' accept-and-infer-next-history
 NEWLINE=$'\n'
 PROMPT='%{$fg[gray]%}%n%{$fg[gray]%}@%{$fg[gray]%}%m%{$fg[cyan]%} ${PWD/#$HOME/~} %{$fg[green]%}${vcs_info_msg_0_}%{$reset_color%}${NEWLINE}% $ '
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-source $HOME/.rvm/scripts/rvm
+DISABLE_AUTO_TITLE="true"
+function precmd () {
+  window_title="\033]0;$(pwd -L)\007"
+  echo -ne "$window_title"
+}
