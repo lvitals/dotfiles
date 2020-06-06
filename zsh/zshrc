@@ -51,11 +51,6 @@ setopt histignoredups
 zmodload zsh/complist
 bindkey -M menuselect '^I' accept-and-infer-next-history
 
-# history completion menu Ctrl+X+X
-autoload -Uz history-beginning-search-menu
-zle -N history-beginning-search-menu
-bindkey '^X^X' history-beginning-search-menu
-
 # fix keys home/end/delete, command: autoload zkbd ; zkbd
 bindkey  "^[[H"   beginning-of-line
 bindkey  "^[[4~"   end-of-line
