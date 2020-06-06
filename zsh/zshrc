@@ -51,14 +51,19 @@ setopt histignoredups
 zmodload zsh/complist
 bindkey -M menuselect '^I' accept-and-infer-next-history
 
+# history completion menu Ctrl+X+X
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X^X' history-beginning-search-menu
+
+# fix keys home/end/delete, command: autoload zkbd ; zkbd
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[4~"   end-of-line
+bindkey  "^[[3~"  delete-char
+
 # No color
 # PROMPT='%n@%m ${PWD/#$HOME/~} ${vcs_info_msg_0_}> '
 
 # Color
 NEWLINE=$'\n'
 PROMPT='%{$fg[gray]%}%n%{$fg[gray]%}@%{$fg[gray]%}%m%{$fg[cyan]%} ${PWD/#$HOME/~} %{$fg[green]%}${vcs_info_msg_0_}%{$reset_color%}${NEWLINE}% %#%{$fg[default]%} '
-
-# fix keys home/end/delete, command: autoload zkbd ; zkbd
-bindkey  "^[[H"   beginning-of-line
-bindkey  "^[[4~"   end-of-line
-bindkey  "^[[3~"  delete-char
