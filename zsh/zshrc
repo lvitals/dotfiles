@@ -3,7 +3,13 @@ autoload -U colors && colors
 
 # Load version control information
 autoload -Uz vcs_info
-precmd() { vcs_info }
+DISABLE_AUTO_TITLE="true"
+
+precmd () {
+  vcs_info
+  window_title="\033]0;$(pwd -L)\007"
+  echo -ne "$window_title"
+}
 
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:git:*' formats '(%b)'
@@ -52,8 +58,7 @@ bindkey -M menuselect '^I' accept-and-infer-next-history
 NEWLINE=$'\n'
 PROMPT='%{$fg[gray]%}%n%{$fg[gray]%}@%{$fg[gray]%}%m%{$fg[cyan]%} ${PWD/#$HOME/~} %{$fg[green]%}${vcs_info_msg_0_}%{$reset_color%}${NEWLINE}% %#%{$fg[default]%} '
 
-DISABLE_AUTO_TITLE="true"
-function precmd () {
-  window_title="\033]0;$(pwd -L)\007"
-  echo -ne "$window_title"
-}
+# fix keys home/end/delete, command: autoload zkbd ; zkbd
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[4~"   end-of-line
+bindkey  "^[[3~"  delete-char
