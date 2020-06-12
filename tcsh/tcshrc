@@ -9,10 +9,13 @@ setenv	EDITOR	nvim
 setenv	PAGER	less
 
 if ($?prompt) then
+        
+        source $HOME/.tcsh/git-completion.tcsh
+        source $HOME/.tcsh/colors.tcsh
+        source $HOME/.tcsh/git-prompt.tcsh
+        
         # An interactive shell -- set some stuff up
-        #set prompt = "%N@%m:%~ %# "
-        #source $HOME/.tcsh/git-prompt.tcsh
-        alias precmd "source $HOME/.tcsh/git-prompt.tcsh"
+        alias precmd 'set prompt="${white}%n${white}@%m ${cyan}%~ ${green}`$GIT_BRANCH_CMD` \n${white}%#${end} "'
         set promptchars = "%#"
         
         set filec
