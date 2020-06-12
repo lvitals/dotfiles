@@ -26,15 +26,15 @@ if which dircolors &>/dev/null; then
 fi
 
 # zsh-autosuggestions enables fish-like
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # syntax highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=cyan,underline
-ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
-ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
+#source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=cyan,underline
+#ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
+#ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
+#ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+#ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -51,10 +51,17 @@ setopt histignoredups
 zmodload zsh/complist
 bindkey -M menuselect '^I' accept-and-infer-next-history
 
+# history completion menu Ctrl+X+X
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X^X' history-beginning-search-menu
+
 # fix keys home/end/delete, command: autoload zkbd ; zkbd
 bindkey  "^[[H"   beginning-of-line
-bindkey  "^[[4~"   end-of-line
+bindkey  "^[[4~"  end-of-line
 bindkey  "^[[3~"  delete-char
+bindkey  "^?"     backward-delete-char
+
 
 # No color
 # PROMPT='%n@%m ${PWD/#$HOME/~} ${vcs_info_msg_0_}> '
@@ -62,3 +69,8 @@ bindkey  "^[[3~"  delete-char
 # Color
 NEWLINE=$'\n'
 PROMPT='%{$fg[gray]%}%n%{$fg[gray]%}@%{$fg[gray]%}%m%{$fg[cyan]%} ${PWD/#$HOME/~} %{$fg[green]%}${vcs_info_msg_0_}%{$reset_color%}${NEWLINE}% %#%{$fg[default]%} '
+
+# Add RVM to PATH for scripting. 
+export PATH="$PATH:$HOME/.rvm/bin"
+source $HOME/.rvm/scripts/rvm
+

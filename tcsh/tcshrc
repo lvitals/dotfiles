@@ -1,0 +1,37 @@
+
+alias h		history 25
+alias j		jobs -l
+alias la	ls -aF
+alias lf	ls -FA
+alias ll	ls -lAF
+
+setenv	EDITOR	nvim
+setenv	PAGER	less
+
+if ($?prompt) then
+        # An interactive shell -- set some stuff up
+        #set prompt = "%N@%m:%~ %# "
+        #source $HOME/.tcsh/git-prompt.tcsh
+        alias precmd "source $HOME/.tcsh/git-prompt.tcsh"
+        set promptchars = "%#"
+        
+        set filec
+	set history = 1000
+	set savehist = (1000 merge)
+	set autolist = ambiguous
+	# Use history to aid expansion
+        set autoexpand
+	set autorehash
+	set mail = (/var/mail/$USER)
+	if ( $?tcsh ) then
+                # command: autoload zkbd ; zkbd
+		bindkey "^W" backward-delete-word
+		bindkey -k up history-search-backward
+		bindkey -k down history-search-forward
+                bindkey "^[[H" beginning-of-line                 
+                bindkey "^[[4~" end-of-line
+                bindkey "^[[3~" delete-char
+                bindkey "^[[4h" overwrite-mode
+	endif
+
+endif
