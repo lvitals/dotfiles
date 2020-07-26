@@ -1,4 +1,4 @@
-" A minimalist Vim plugin manager
+A minimalist Vim plugin manager
 
 ```bash
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
